@@ -10,7 +10,7 @@ const AIChat: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: 'model',
-      text: "Hi! I'm Alex's AI Assistant. Ask me anything about his skills, projects, or experience!",
+      text: "Hi! I'm Akshay's AI Assistant. Ask me anything about his skills, projects, or experience!",
       timestamp: new Date()
     }
   ]);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Github, Linkedin, Mail, ChevronDown, MapPin, Briefcase, GraduationCap, Globe, Smartphone, FileSpreadsheet, TrendingUp } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Mail, ChevronDown, MapPin, Briefcase, GraduationCap, Globe, Smartphone, FileSpreadsheet, TrendingUp, Phone } from 'lucide-react';
 import Background3D from './components/Background3D';
 import AIChat from './components/AIChat';
 import ProjectCard from './components/ProjectCard';
@@ -95,7 +95,7 @@ const App: React.FC = () => {
       <nav className="fixed top-0 left-0 right-0 z-40 bg-slate-950/70 backdrop-blur-lg border-b border-white/5 supports-[backdrop-filter]:bg-slate-950/30">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary font-mono tracking-tight hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-            {"<DevSpace />"}
+            {"<ImAkshay />"}
           </div>
           
           {/* Desktop Menu */}
@@ -233,7 +233,7 @@ const App: React.FC = () => {
                         </div>
                         <div>
                           <h4 className="text-white font-bold text-sm uppercase tracking-wide mb-1">Location</h4>
-                          <p className="text-slate-400 text-sm">San Francisco, CA</p>
+                          <p className="text-slate-400 text-sm">West Bengal, India</p>
                         </div>
                       </div>
 
@@ -259,11 +259,11 @@ const App: React.FC = () => {
 
                        <div className="flex items-start gap-4">
                         <div className="p-3 rounded-lg bg-slate-800/50 text-purple-400 border border-slate-700">
-                          <Globe size={20} />
+                          <Phone size={20} />
                         </div>
                         <div>
-                          <h4 className="text-white font-bold text-sm uppercase tracking-wide mb-1">Focus</h4>
-                          <p className="text-slate-400 text-sm">Scalable Architecture</p>
+                          <h4 className="text-white font-bold text-sm uppercase tracking-wide mb-1">Contact</h4>
+                          <p className="text-slate-400 text-sm">+91 9732004563</p>
                         </div>
                       </div>
                     </div>
@@ -275,7 +275,7 @@ const App: React.FC = () => {
                       <a href="#" className="flex items-center gap-2 px-4 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl hover:bg-slate-800 hover:border-secondary/50 hover:text-secondary transition-all hover:-translate-y-1 shadow-lg">
                         <Linkedin size={18}/> <span className="font-medium text-sm">LinkedIn</span>
                       </a>
-                      <a href="#" className="flex items-center gap-2 px-4 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl hover:bg-slate-800 hover:border-sky-500/50 hover:text-sky-400 transition-all hover:-translate-y-1 shadow-lg">
+                      <a href="mailto:contact@imakshay.in" className="flex items-center gap-2 px-4 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl hover:bg-slate-800 hover:border-sky-500/50 hover:text-sky-400 transition-all hover:-translate-y-1 shadow-lg">
                         <Mail size={18}/> <span className="font-medium text-sm">Email</span>
                       </a>
                     </div>

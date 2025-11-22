@@ -64,7 +64,7 @@ const init = async () => {
   
   await new Promise(r => setTimeout(r, 1000));
   
-  title.innerText = "Alex Dev";
+  title.innerText = "Akshay Mondal";
   title.classList.add('active');
   
   return {

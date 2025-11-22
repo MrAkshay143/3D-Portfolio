@@ -3,25 +3,6 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, Stars, Sparkles, MeshDistortMaterial, Grid, Environment, PerspectiveCamera } from '@react-three/drei';
 import { MathUtils, Color } from 'three';
 
-// Intrinsic elements declaration for TypeScript
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      meshStandardMaterial: any;
-      pointLight: any;
-      ambientLight: any;
-      group: any;
-      color: any;
-      fog: any;
-      mesh: any;
-      boxGeometry: any;
-      torusKnotGeometry: any;
-      icosahedronGeometry: any;
-      octahedronGeometry: any;
-    }
-  }
-}
-
 const MouseLight = () => {
   const light = useRef<any>(null);
   

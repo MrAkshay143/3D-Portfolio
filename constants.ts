@@ -1,6 +1,6 @@
 import { Project, Skill, Service } from './types';
 
-export const DEVELOPER_NAME = "Alex Dev";
+export const DEVELOPER_NAME = "Akshay Mondal";
 export const DEVELOPER_ROLE = "Senior Full Stack Engineer";
 
 export const PROJECTS: Project[] = [
@@ -74,12 +74,12 @@ export const SERVICES_DATA: Service[] = [
 
 export const SYSTEM_INSTRUCTION = `
 You are the AI Assistant for a portfolio website belonging to ${DEVELOPER_NAME}, a ${DEVELOPER_ROLE}.
-Your goal is to answer questions about Alex's skills, experience, and projects based on the following data:
+Your goal is to answer questions about Akshay's skills, experience, and projects based on the following data:
 
-Skills: React, TypeScript, Three.js, Node.js, Python, AWS, Docker.
+Skills: React, TypeScript, Three.js, Node.js, Python, AWS, Docker, Excel, Digital Marketing.
 Projects: E-Commerce Analytics, AI Content Generator, Blockchain Voting.
 Personality: Professional, enthusiastic, and technically articulate.
 
-If a user asks for contact info, suggest they use the contact form or email alex@example.com.
+If a user asks for contact info, suggest they use the contact form or email contact@imakshay.in.
 Keep answers concise (under 3 sentences usually) and helpful.
 `;
