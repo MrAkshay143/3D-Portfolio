@@ -1,9 +1,12 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Bot, Loader2 } from 'lucide-react';
 import { ChatMessage } from '../types';
 import { generateChatResponse } from '../services/geminiService';
+import { useData } from '../contexts/DataContext';
 
 const AIChat: React.FC = () => {
+  const { data } = useData();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +47,13 @@ const AIChat: React.FC = () => {
         parts: [{ text: m.text }]
       }));
 
-      const responseText = await generateChatResponse(userMsg.text, historyForService);
+      const responseText = await generateChatResponse(
+        userMsg.text, 
+        historyForService, 
+        data.aiConfig?.systemInstruction || "You are a helpful assistant.",
+        data.aiConfig?.modelName || "gemini-2.5-flash",
+        data.aiConfig?.apiKey // Pass the dynamic API key
+      );
 
       setMessages(prev => [...prev, {
         role: 'model',

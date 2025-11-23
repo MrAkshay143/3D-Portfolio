@@ -1,81 +1,7 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { FileCode, FileType, Code2 } from 'lucide-react';
-
-interface FileData {
-  name: string;
-  lang: 'html' | 'css' | 'javascript';
-  icon: React.ReactNode;
-  content: string;
-}
-
-const FILES: FileData[] = [
-  {
-    name: 'index.html',
-    lang: 'html',
-    icon: <Code2 size={14} className="text-orange-500" />,
-    content: `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>DevSpace</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <div id="app">
-      <h1 class="hero-title">Hello World</h1>
-      <div class="loader"></div>
-    </div>
-    <script src="script.js"></script>
-  </body>
-</html>`
-  },
-  {
-    name: 'style.css',
-    lang: 'css',
-    icon: <FileType size={14} className="text-blue-400" />,
-    content: `:root {
-  --primary: #6366f1;
-  --bg: #0f172a;
-}
-
-.hero-title {
-  font-size: 4rem;
-  background: linear-gradient(to right, #fff, #6366f1);
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: fadeIn 1s ease-in;
-}
-
-.loader {
-  border: 4px solid var(--primary);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-}`
-  },
-  {
-    name: 'script.js',
-    lang: 'javascript',
-    icon: <FileCode size={14} className="text-yellow-400" />,
-    content: `const app = document.getElementById('app');
-const title = document.querySelector('.hero-title');
-
-const init = async () => {
-  console.log("Initializing DevSpace...");
-  
-  await new Promise(r => setTimeout(r, 1000));
-  
-  title.innerText = "Akshay Mondal";
-  title.classList.add('active');
-  
-  return {
-    status: 'Ready',
-    version: '2.0.0'
-  };
-};
-
-init();`
-  }
-];
+import { useData } from '../contexts/DataContext';
 
 const getSyntaxColor = (word: string, lang: string): string => {
   // HTML Highlighting
@@ -108,15 +34,30 @@ const getSyntaxColor = (word: string, lang: string): string => {
   return 'text-slate-300';
 };
 
+const getFileIcon = (lang: string) => {
+    switch(lang) {
+        case 'html': return <Code2 size={14} className="text-orange-500" />;
+        case 'css': return <FileType size={14} className="text-blue-400" />;
+        case 'javascript': return <FileCode size={14} className="text-yellow-400" />;
+        default: return <FileCode size={14} className="text-slate-400" />;
+    }
+};
+
 const HeroCodeTerminal: React.FC = () => {
+  const { data } = useData();
+  const files = data.heroCode?.files || [];
+  const speed = data.heroCode?.speed || 10;
+  
   const [activeTab, setActiveTab] = useState(0);
   const [visibleChars, setVisibleChars] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  const activeFile = FILES[activeTab];
+  // Safety check if no files exist
+  const activeFile = files[activeTab] || { content: '', lang: 'html', name: 'untitled' };
 
   // Tokenize content for syntax highlighting
   const tokens = useMemo(() => {
+    if (!activeFile.content) return [];
     // Split by common delimiters while keeping them for JS/CSS/HTML structure
     const rawTokens = activeFile.content.split(/(\s+|[<>/=:";(){}[\],.]|(?<=\w)(?=\W)|(?<=\W)(?=\w))/g).filter(Boolean);
     return rawTokens.map((token) => ({
@@ -137,26 +78,28 @@ const HeroCodeTerminal: React.FC = () => {
     let timeout: ReturnType<typeof setTimeout>;
 
     if (visibleChars < charArray.length) {
-      // Typing speed
+      // Typing speed based on dynamic setting
       timeout = setTimeout(() => {
-        setVisibleChars(prev => prev + 3); // Type 3 chars per tick for speed
-      }, 10); 
-    } else if (isAutoPlaying) {
+        setVisibleChars(prev => prev + 3); // Type 3 chars per tick for speed perception
+      }, speed); 
+    } else if (isAutoPlaying && files.length > 1) {
       // Wait before switching tab
       timeout = setTimeout(() => {
-        setActiveTab(prev => (prev + 1) % FILES.length);
+        setActiveTab(prev => (prev + 1) % files.length);
         setVisibleChars(0);
       }, 2000);
     }
 
     return () => clearTimeout(timeout);
-  }, [visibleChars, charArray.length, isAutoPlaying]);
+  }, [visibleChars, charArray.length, isAutoPlaying, files.length, speed]);
 
   const handleTabClick = (index: number) => {
     setIsAutoPlaying(false); // Stop auto-rotation on manual interaction
     setActiveTab(index);
     setVisibleChars(0); // Restart typing for the clicked tab
   };
+  
+  if (files.length === 0) return null;
 
   return (
     // Updated max-width to [85vw] on mobile to prevent horizontal overflow from negative margin glow
@@ -177,9 +120,9 @@ const HeroCodeTerminal: React.FC = () => {
            
            {/* Tabs */}
            <div className="flex flex-1 overflow-x-auto scrollbar-hide">
-              {FILES.map((file, index) => (
+              {files.map((file, index) => (
                 <button
-                  key={file.name}
+                  key={file.id || index}
                   onClick={() => handleTabClick(index)}
                   className={`
                     relative flex items-center gap-2 px-4 py-2 text-xs font-medium transition-all duration-200 rounded-t-lg mr-1 border-t border-x
@@ -189,7 +132,7 @@ const HeroCodeTerminal: React.FC = () => {
                     }
                   `}
                 >
-                  {file.icon}
+                  {getFileIcon(file.lang)}
                   <span className="font-mono">{file.name}</span>
                   {/* Active Tab Highlight Line */}
                   {activeTab === index && (

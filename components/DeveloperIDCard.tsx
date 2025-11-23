@@ -1,8 +1,13 @@
 import React from 'react';
 import { QrCode, ShieldCheck, Wifi, Activity, Cpu } from 'lucide-react';
-import { DEVELOPER_NAME, DEVELOPER_ROLE } from '../constants';
 
-const DeveloperIDCard: React.FC = () => {
+interface DeveloperIDCardProps {
+  name: string;
+  role: string;
+  profileImage: string;
+}
+
+const DeveloperIDCard: React.FC<DeveloperIDCardProps> = ({ name, role, profileImage }) => {
   return (
     <div className="relative group perspective-1000 w-full max-w-sm mx-auto transition-all duration-500 hover:rotate-y-6 hover:rotate-x-6">
       {/* Outer Glow */}
@@ -45,7 +50,7 @@ const DeveloperIDCard: React.FC = () => {
           <div className="-mt-14 mb-4 w-28 h-28 rounded-2xl p-1 bg-gradient-to-br from-slate-700 to-slate-800 shadow-xl relative mx-auto group-hover:scale-105 transition-transform duration-500">
             <div className="w-full h-full rounded-xl overflow-hidden relative bg-slate-950">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" 
+                src={profileImage} 
                 alt="Profile" 
                 className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" 
               />
@@ -60,8 +65,8 @@ const DeveloperIDCard: React.FC = () => {
 
           {/* Text Info */}
           <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold text-white tracking-tight font-sans mb-1">{DEVELOPER_NAME}</h3>
-            <p className="text-xs font-mono text-primary uppercase tracking-widest">{DEVELOPER_ROLE}</p>
+            <h3 className="text-2xl font-bold text-white tracking-tight font-sans mb-1">{name}</h3>
+            <p className="text-xs font-mono text-primary uppercase tracking-widest">{role}</p>
           </div>
 
           {/* Data Chip & Info Grid */}
