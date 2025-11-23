@@ -11,7 +11,8 @@ export const PROJECTS: Project[] = [
     techStack: ["React", "TypeScript", "D3.js", "Node.js", "Socket.io"],
     image: "https://picsum.photos/600/400?random=1",
     demoUrl: "#",
-    repoUrl: "#"
+    repoUrl: "#",
+    category: "Web"
   },
   {
     id: 2,
@@ -20,7 +21,8 @@ export const PROJECTS: Project[] = [
     techStack: ["Next.js", "Python", "FastAPI", "Gemini API", "Tailwind"],
     image: "https://picsum.photos/600/400?random=2",
     demoUrl: "#",
-    repoUrl: "#"
+    repoUrl: "#",
+    category: "Software"
   },
   {
     id: 3,
@@ -29,7 +31,68 @@ export const PROJECTS: Project[] = [
     techStack: ["Solidity", "React", "Web3.js", "Ethereum"],
     image: "https://picsum.photos/600/400?random=3",
     demoUrl: "#",
-    repoUrl: "#"
+    repoUrl: "#",
+    category: "Web"
+  },
+  {
+    id: 4,
+    title: "Smart Expense Tracker App",
+    description: "Mobile application for tracking daily expenses with OCR receipt scanning and budget forecasting.",
+    techStack: ["React Native", "Firebase", "TensorFlow Lite"],
+    image: "https://picsum.photos/600/400?random=4",
+    demoUrl: "#",
+    repoUrl: "#",
+    category: "App"
+  },
+  {
+    id: 5,
+    title: "Financial Model Forecaster",
+    description: "Advanced Excel workbook with VBA macros for projecting 5-year financial growth based on variable market inputs.",
+    techStack: ["Excel", "VBA", "Power Query"],
+    image: "https://picsum.photos/600/400?random=5",
+    demoUrl: "#",
+    repoUrl: "#",
+    category: "Adv. Excel"
+  },
+  {
+    id: 6,
+    title: "Inventory CLI Tool",
+    description: "Command-line interface tool for managing warehouse inventory with barcode scanner integration.",
+    techStack: ["Rust", "SQLite", "CLI"],
+    image: "https://picsum.photos/600/400?random=6",
+    demoUrl: "#",
+    repoUrl: "#",
+    category: "Software"
+  },
+  {
+    id: 7,
+    title: "Yoga & Wellness Coach",
+    description: "Cross-platform mobile app providing personalized yoga routines and meditation guides.",
+    techStack: ["Flutter", "Dart", "AWS Amplify"],
+    image: "https://picsum.photos/600/400?random=7",
+    demoUrl: "#",
+    repoUrl: "#",
+    category: "App"
+  },
+  {
+    id: 8,
+    title: "Corporate HR Portal",
+    description: "Comprehensive web portal for employee management, leave tracking, and payroll processing.",
+    techStack: ["Angular", "NestJS", "PostgreSQL"],
+    image: "https://picsum.photos/600/400?random=8",
+    demoUrl: "#",
+    repoUrl: "#",
+    category: "Web"
+  },
+  {
+    id: 9,
+    title: "Automated Stock Screener",
+    description: "Excel-based tool connecting to stock market APIs to filter stocks based on technical indicators.",
+    techStack: ["Excel", "Office Scripts", "API Integration"],
+    image: "https://picsum.photos/600/400?random=9",
+    demoUrl: "#",
+    repoUrl: "#",
+    category: "Adv. Excel"
   }
 ];
 

@@ -29,6 +29,7 @@
               'width-grow': 'widthGrow 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards',
               'float': 'float 6s ease-in-out infinite',
               'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'scroll': 'scroll 90s linear infinite',
             },
             keyframes: {
               fadeInUp: {
@@ -42,6 +43,10 @@
               float: {
                 '0%, 100%': { transform: 'translateY(0)' },
                 '50%': { transform: 'translateY(-20px)' },
+              },
+              scroll: {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-50%)' },
               }
             }
           }
@@ -69,6 +74,199 @@
         color: white;
         overflow-x: hidden;
         margin: 0;
+      }
+      /* Hide scrollbar for social links on mobile */
+      .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+      }
+      .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+      /* Gradient Mask for scrolling container */
+      .mask-gradient-sides {
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      }
+
+      /* --- ELECTRIC CARD CSS --- */
+      
+      /* Card container */
+      .electric-card-container {
+        padding: 2px;
+        border-radius: 24px;
+        position: relative;
+        background: linear-gradient(
+            -30deg,
+            var(--gradient-color),
+            transparent,
+            var(--gradient-color)
+          ),
+          linear-gradient(
+            to bottom,
+            rgb(15, 23, 42),
+            rgb(2, 6, 23)
+          );
+        height: 100%;
+        width: 100%;
+        transition: transform 0.3s ease;
+      }
+
+      /* Inner container */
+      .electric-inner-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Border layers */
+      .electric-border-outer {
+        border: 2px solid rgba(221, 132, 72, 0.5);
+        border-color: color-mix(in srgb, var(--electric-border-color), transparent 50%);
+        border-radius: 24px;
+        padding-right: 4px;
+        padding-bottom: 4px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .electric-main-card {
+        width: 100%;
+        height: 100%;
+        border-radius: 24px;
+        border: 2px solid var(--electric-border-color);
+        margin-top: -4px;
+        margin-left: -4px;
+        filter: url(#turbulent-displace);
+        opacity: 0.8;
+      }
+
+      /* Glow effects */
+      .electric-glow-layer-1 {
+        border: 2px solid var(--electric-border-color);
+        border-radius: 24px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        filter: blur(1px);
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      .electric-glow-layer-2 {
+        border: 2px solid var(--electric-border-color);
+        border-radius: 24px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        filter: blur(4px);
+        opacity: 0.4;
+        pointer-events: none;
+      }
+
+      /* Overlay effects */
+      .electric-overlay-1 {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 24px;
+        opacity: 0.1;
+        mix-blend-mode: overlay;
+        transform: scale(1.02);
+        filter: blur(16px);
+        background: linear-gradient(
+          -30deg,
+          white,
+          transparent 30%,
+          transparent 70%,
+          white
+        );
+        pointer-events: none;
+      }
+
+      .electric-overlay-2 {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 24px;
+        opacity: 0.05;
+        mix-blend-mode: overlay;
+        transform: scale(1.02);
+        filter: blur(16px);
+        background: linear-gradient(
+          -30deg,
+          white,
+          transparent 30%,
+          transparent 70%,
+          white
+        );
+        pointer-events: none;
+      }
+
+      /* Background glow */
+      .electric-background-glow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 24px;
+        filter: blur(32px);
+        transform: scale(1.05);
+        opacity: 0.15;
+        z-index: -1;
+        background: linear-gradient(
+          -30deg,
+          var(--electric-border-color),
+          transparent,
+          var(--electric-border-color)
+        );
+      }
+
+      .electric-content-container {
+        position: relative;
+        z-index: 10;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 24px;
+      }
+      
+      .electric-divider {
+        margin-top: auto;
+        border: none;
+        height: 1px;
+        background-color: var(--electric-border-color);
+        opacity: 0.2;
+        mask-image: linear-gradient(to right, transparent, black, transparent);
+        -webkit-mask-image: linear-gradient(
+          to right,
+          transparent,
+          black,
+          transparent
+        );
       }
     </style>
   <script type="importmap">

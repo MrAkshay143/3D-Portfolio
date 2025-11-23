@@ -71,6 +71,10 @@ const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>(SectionId.HOME);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  
+  // Project Filtering State
+  const [activeCategory, setActiveCategory] = useState<string>('All Projects');
+  const projectCategories = ["All Projects", "Web", "App", "Software", "Adv. Excel"];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -111,9 +115,46 @@ const App: React.FC = () => {
     }
   };
 
+  const filteredProjects = activeCategory === 'All Projects' 
+    ? PROJECTS 
+    : PROJECTS.filter(p => p.category === activeCategory);
+
   return (
     <div className="min-h-screen font-sans selection:bg-primary selection:text-white overflow-x-hidden text-slate-200">
       <Background3D />
+      
+      {/* SVG Filters for Effects */}
+      <svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+        <defs>
+          <filter id="turbulent-displace" colorInterpolationFilters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise1" seed="1" />
+            <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1">
+              <animate attributeName="dy" values="700; 0" dur="6s" repeatCount="indefinite" calcMode="linear" />
+            </feOffset>
+
+            <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise2" seed="1" />
+            <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2">
+              <animate attributeName="dy" values="0; -700" dur="6s" repeatCount="indefinite" calcMode="linear" />
+            </feOffset>
+
+            <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise1" seed="2" />
+            <feOffset in="noise1" dx="0" dy="0" result="offsetNoise3">
+              <animate attributeName="dx" values="490; 0" dur="6s" repeatCount="indefinite" calcMode="linear" />
+            </feOffset>
+
+            <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise2" seed="2" />
+            <feOffset in="noise2" dx="0" dy="0" result="offsetNoise4">
+              <animate attributeName="dx" values="0; -490" dur="6s" repeatCount="indefinite" calcMode="linear" />
+            </feOffset>
+
+            <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
+            <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
+            <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
+
+            <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="30" xChannelSelector="R" yChannelSelector="B" />
+          </filter>
+        </defs>
+      </svg>
       
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-40 bg-slate-950/70 backdrop-blur-lg border-b border-white/5 supports-[backdrop-filter]:bg-slate-950/30">
@@ -351,7 +392,10 @@ const App: React.FC = () => {
             </AnimatedSection>
 
             {/* PROJECTS SECTION */}
-            <AnimatedSection id={SectionId.PROJECTS} className="py-10 md:py-10 lg:py-14 px-4 sm:px-6">
+            <AnimatedSection id={SectionId.PROJECTS} className="py-10 md:py-10 lg:py-14 px-4 sm:px-6 relative">
+              {/* Colorful Background Glow */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-gradient-to-r from-primary/10 via-purple-500/10 to-secondary/10 blur-[100px] -z-10 pointer-events-none" />
+
               <div className="max-w-7xl mx-auto">
                  <div className="text-center mb-8 md:mb-8 lg:mb-12">
                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 inline-flex items-center gap-3 flex-wrap justify-center">
@@ -359,16 +403,58 @@ const App: React.FC = () => {
                       Featured Projects
                       <span className="w-8 h-1 bg-secondary rounded-full shadow-[0_0_10px_#ec4899]"></span>
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">A selection of my recent work utilizing modern web technologies.</p>
+                    <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mb-8">A selection of my recent work utilizing modern web technologies.</p>
+                    
+                    {/* Category Filter Buttons */}
+                    <div className="flex flex-wrap justify-center gap-3 mb-8">
+                      {projectCategories.map((category) => (
+                        <button
+                          key={category}
+                          onClick={() => setActiveCategory(category)}
+                          className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95 ${
+                            activeCategory === category 
+                              ? 'bg-primary border-primary text-white shadow-[0_0_15px_rgba(99,102,241,0.5)]' 
+                              : 'bg-slate-900/50 border-slate-700 text-slate-400 hover:text-white hover:border-slate-500'
+                          }`}
+                        >
+                          {category}
+                        </button>
+                      ))}
+                    </div>
                  </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-8">
-                  {PROJECTS.map((project, idx) => (
-                    <ScrollReveal key={project.id} delay={idx * 150}>
-                      <ProjectCard project={project} />
-                    </ScrollReveal>
-                  ))}
-                </div>
+                {/* Projects Display Logic */}
+                {activeCategory === 'All Projects' ? (
+                  /* Horizontal Marquee Scroll for All Projects */
+                  <div className="relative w-full overflow-hidden mask-gradient-sides">
+                    <div className="flex w-max animate-scroll hover:[animation-play-state:paused] py-4 pl-4 will-change-transform">
+                      {/* Double the projects to create infinite loop effect */}
+                      {/* Using marginRight instead of gap for seamless loop calculation */}
+                      {[...PROJECTS, ...PROJECTS].map((project, idx) => (
+                        <div key={`${project.id}-${idx}`} className="w-[280px] md:w-[320px] lg:w-[360px] h-[450px] flex-shrink-0 mr-6 md:mr-8">
+                          <ProjectCard project={project} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  /* Standard Grid for Filtered Categories */
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-8 min-h-[400px]">
+                    {filteredProjects.map((project, idx) => (
+                      <ScrollReveal key={project.id} delay={idx * 150}>
+                        <div className="h-[500px]">
+                           <ProjectCard project={project} />
+                        </div>
+                      </ScrollReveal>
+                    ))}
+                    {filteredProjects.length === 0 && (
+                      <div className="col-span-full text-center py-20 text-slate-500">
+                        No projects found in this category.
+                      </div>
+                    )}
+                  </div>
+                )}
+                
               </div>
             </AnimatedSection>
 

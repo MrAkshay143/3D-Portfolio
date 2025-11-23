@@ -6,6 +6,7 @@ export interface Project {
   demoUrl?: string;
   repoUrl?: string;
   image: string;
+  category: 'Web' | 'App' | 'Software' | 'Adv. Excel';
 }
 
 export interface Skill {
