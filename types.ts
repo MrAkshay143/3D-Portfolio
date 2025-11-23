@@ -14,12 +14,25 @@ export interface Skill {
   category: 'Frontend' | 'Backend' | 'DevOps' | 'Tools';
 }
 
+export interface ServiceProcess {
+  title: string;
+  description: string;
+}
+
+export interface ServiceDetails {
+  longDescription: string;
+  process: ServiceProcess[];
+  benefits: string[];
+  technologies: string[];
+}
+
 export interface Service {
   title: string;
   description: string;
   iconKey: string;
   features: string[];
   color: string;
+  details: ServiceDetails;
 }
 
 export interface ChatMessage {

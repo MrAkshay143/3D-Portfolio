@@ -3,6 +3,38 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, Stars, Sparkles, MeshDistortMaterial, Grid, Environment, PerspectiveCamera } from '@react-three/drei';
 import { MathUtils, Color } from 'three';
 
+// Extend JSX.IntrinsicElements to include Three.js elements used in the scene
+// We extend both JSX and React.JSX to ensure compatibility with various TypeScript/React setups
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      ambientLight: any;
+      pointLight: any;
+      mesh: any;
+      boxGeometry: any;
+      meshStandardMaterial: any;
+      torusKnotGeometry: any;
+      color: any;
+      fog: any;
+    }
+  }
+  
+  namespace React {
+    namespace JSX {
+      interface IntrinsicElements {
+        ambientLight: any;
+        pointLight: any;
+        mesh: any;
+        boxGeometry: any;
+        meshStandardMaterial: any;
+        torusKnotGeometry: any;
+        color: any;
+        fog: any;
+      }
+    }
+  }
+}
+
 const MouseLight = () => {
   const light = useRef<any>(null);
   

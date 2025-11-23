@@ -159,11 +159,12 @@ const HeroCodeTerminal: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full max-w-lg mx-auto animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-      {/* Glow Effect */}
+    // Updated max-width to [85vw] on mobile to prevent horizontal overflow from negative margin glow
+    <div className="relative w-full max-w-[85vw] sm:max-w-lg mx-auto animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+      {/* Glow Effect - Negative inset can cause overflow if parent is 100vw, hence the 85vw constraint above */}
       <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-30"></div>
       
-      <div className="relative bg-slate-900 border border-slate-700/50 rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[400px] transition-all duration-500">
+      <div className="relative bg-slate-900 border border-slate-700/50 rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[300px] md:h-[320px] lg:h-[400px] transition-all duration-500">
         
         {/* Window Header & Tabs */}
         <div className="bg-slate-950 border-b border-slate-800 flex items-center px-4 pt-2 select-none">
@@ -200,7 +201,7 @@ const HeroCodeTerminal: React.FC = () => {
         </div>
 
         {/* Code Editor Area */}
-        <div className="flex-1 p-6 font-mono text-sm overflow-hidden bg-slate-900 relative">
+        <div className="flex-1 p-4 sm:p-6 font-mono text-xs sm:text-sm overflow-hidden bg-slate-900 relative">
           <div className="whitespace-pre-wrap leading-relaxed break-words">
             {charArray.map((item, index) => (
               <span 
