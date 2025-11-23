@@ -20,7 +20,7 @@ const INITIAL_DATA: PortfolioData = {
         content: `<!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DevSpace</title>
+    <title>ImAkshay</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -64,7 +64,7 @@ const INITIAL_DATA: PortfolioData = {
 const title = document.querySelector('.hero-title');
 
 const init = async () => {
-  console.log("Initializing DevSpace...");
+  console.log("Initializing ImAkshay...");
   
   await new Promise(r => setTimeout(r, 1000));
   
@@ -212,7 +212,7 @@ init();`
   },
   adminConfig: {
     username: "admin",
-    password: "admin"
+    password: "ImAkshay@2025"
   }
 };
 
@@ -241,8 +241,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
            if (parsed.aiConfig.apiKey === undefined) parsed.aiConfig.apiKey = "";
         }
 
-        // Initialize Admin Config if missing
-        if (!parsed.adminConfig) parsed.adminConfig = INITIAL_DATA.adminConfig;
+        // Initialize Admin Config if missing or if using old default
+        if (!parsed.adminConfig || (parsed.adminConfig.password === 'admin' && INITIAL_DATA.adminConfig.password !== 'admin')) {
+             parsed.adminConfig = INITIAL_DATA.adminConfig;
+        }
         
         setData(parsed);
       } catch (e) {

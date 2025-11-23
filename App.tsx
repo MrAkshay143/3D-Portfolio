@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Github, Linkedin, Mail, ChevronDown, MapPin, Briefcase, GraduationCap, Globe, Smartphone, FileSpreadsheet, TrendingUp, Phone, Lock, Home, User, Code, Link as LinkIcon, Cpu } from 'lucide-react';
 import Background3D from './components/Background3D';
@@ -173,16 +174,7 @@ const MainContent: React.FC = () => {
 
   if (isAdminView) {
     return (
-      <>
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950 border-b border-slate-800">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div className="text-xl font-bold font-mono text-white cursor-pointer" onClick={() => setIsAdminView(false)}>
-              {"< Back to Portfolio"}
-            </div>
-          </div>
-        </nav>
-        <AdminPanel onLogout={() => setIsAdminView(false)} />
-      </>
+      <AdminPanel onLogout={() => setIsAdminView(false)} />
     );
   }
 

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useData } from '../../contexts/DataContext';
 import { 
@@ -8,6 +7,7 @@ import {
   Youtube, Monitor, Cpu, Database, Server, Calculator, FileLock, Image, FileText,
   UserCheck, MessageCircle, Video, Menu, LayoutTemplate, Terminal, Bot, Settings, Key
 } from 'lucide-react';
+import AdminLogin from './AdminLogin';
 
 // Icon mapping for preview and reference
 const ICON_PREVIEW_MAP: Record<string, React.ReactNode> = {
@@ -46,6 +46,7 @@ const AdminPanel: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
   const [activeTab, setActiveTab] = useState('Hero');
   // State to toggle between Card Tools and Iframe Sections in Tools tab
   const [toolsSubTab, setToolsSubTab] = useState<'cards' | 'sections'>('cards');
@@ -58,16 +59,16 @@ const AdminPanel: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     setFormData(data);
   }, [data]);
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = (u: string, p: string) => {
     // Validate against stored credentials (or default if not present yet)
     const storedUser = data.adminConfig?.username || 'admin';
     const storedPass = data.adminConfig?.password || 'admin';
 
-    if (username === storedUser && password === storedPass) {
+    if (u === storedUser && p === storedPass) {
       setIsAuthenticated(true);
+      setLoginError(false);
     } else {
-      alert('Invalid credentials!');
+      setLoginError(true);
     }
   };
 
@@ -96,50 +97,7 @@ const AdminPanel: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
 
   // Login View
   if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-950 relative z-50 px-4">
-        <div className="bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-2xl shadow-2xl w-full max-w-md">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-2">Admin Panel</h2>
-            <p className="text-slate-400">Please authenticate to continue</p>
-          </div>
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-slate-400 mb-2">Username</label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-                <input 
-                  type="text" 
-                  value={username}
-                  onChange={e => setUsername(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-white focus:border-primary focus:outline-none"
-                  placeholder="admin"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-400 mb-2">Password</label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-                <input 
-                  type="password" 
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-white focus:border-primary focus:outline-none"
-                  placeholder="admin"
-                />
-              </div>
-            </div>
-            <button className="w-full bg-primary hover:bg-indigo-600 text-white font-bold py-3 rounded-xl transition-all">
-              Login
-            </button>
-            <button type="button" onClick={onLogout} className="w-full text-slate-500 hover:text-white text-sm">
-              Back to Site
-            </button>
-          </form>
-        </div>
-      </div>
-    );
+    return <AdminLogin onLogin={handleLogin} isError={loginError} onBack={onLogout} />;
   }
 
   // Dashboard View

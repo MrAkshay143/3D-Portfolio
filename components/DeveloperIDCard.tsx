@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { QrCode, ShieldCheck, Wifi, Activity, Cpu } from 'lucide-react';
 
@@ -35,7 +36,7 @@ const DeveloperIDCard: React.FC<DeveloperIDCardProps> = ({ name, role, profileIm
              <div className="p-1.5 bg-slate-950/50 rounded-lg border border-white/10 backdrop-blur-md">
                <ShieldCheck className="text-primary" size={18} />
              </div>
-             <span className="text-[10px] font-mono tracking-[0.2em] text-slate-300 uppercase font-bold">DevSpace Corp</span>
+             <span className="text-[10px] font-mono tracking-[0.2em] text-slate-300 uppercase font-bold">ImAkshay Corp</span>
           </div>
           
           <div className="absolute top-4 right-5 flex gap-2 z-10">
