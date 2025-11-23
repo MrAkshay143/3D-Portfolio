@@ -2,6 +2,7 @@ import { Project, Skill, Service } from './types';
 
 export const DEVELOPER_NAME = "Akshay Mondal";
 export const DEVELOPER_ROLE = "Senior Full Stack Engineer";
+export const START_YEAR = 2020;
 
 export const PROJECTS: Project[] = [
   {

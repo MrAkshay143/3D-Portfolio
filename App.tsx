@@ -9,7 +9,7 @@ import ServiceCard from './components/ServiceCard';
 import ServiceDetail from './components/ServiceDetail';
 import SkillCircle from './components/SkillCircle';
 import ScrollRevealCard from './components/ScrollRevealCard'; // Assuming this exists or using inline
-import { PROJECTS, DEVELOPER_NAME, DEVELOPER_ROLE, SERVICES_DATA, SKILLS } from './constants';
+import { PROJECTS, DEVELOPER_NAME, DEVELOPER_ROLE, SERVICES_DATA, SKILLS, START_YEAR } from './constants';
 import { SectionId, Service } from './types';
 
 // Helper for intersection observer
@@ -75,6 +75,10 @@ const App: React.FC = () => {
   // Project Filtering State
   const [activeCategory, setActiveCategory] = useState<string>('All Projects');
   const projectCategories = ["All Projects", "Web", "App", "Software", "Adv. Excel"];
+
+  // Calculate experience
+  const currentYear = new Date().getFullYear();
+  const experienceYears = currentYear - START_YEAR;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -265,7 +269,7 @@ const App: React.FC = () => {
               </div>
               
               {/* Background Glow Effects */}
-              <div className="absolute top-1/4 left-[-10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -z-10 animate-pulse-slow" />
+              <div className="absolute top-1/4 left-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -z-10 animate-pulse-slow" />
               <div className="absolute bottom-0 right-[-10%] w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[120px] -z-10" />
 
               <div className="absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-slate-500 opacity-50 cursor-pointer hidden md:block" onClick={() => scrollTo(SectionId.ABOUT)}>
@@ -321,7 +325,7 @@ const App: React.FC = () => {
                             </div>
                             <div>
                               <h4 className="text-white font-bold text-xs md:text-sm uppercase tracking-wide mb-1">Experience</h4>
-                              <p className="text-slate-400 text-xs md:text-sm">5+ Years Full Stack</p>
+                              <p className="text-slate-400 text-xs md:text-sm">{experienceYears}+ Years Full Stack</p>
                             </div>
                           </div>
 
